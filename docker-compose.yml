@@ -1,10 +1,9 @@
-version: '3'
 services:
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - "0.0.0.0:8081:8081"
+      - "8081:8081"
     environment:
       ME_CONFIG_BASICAUTH_USERNAME: root
       ME_CONFIG_BASICAUTH_PASSWORD: toor
@@ -20,4 +19,14 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: toor
     ports:
-      - "0.0.0.0:27017:27017"
+      - "27017:27017"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.2
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      [ "start-dev"]
+    ports:
+      - 9090:8080

@@ -17,19 +17,21 @@ class ThreadControllerTest extends BasicSetup {
 
     @Test
     public void saveThreadFlow() throws InvalidAttributeException {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("name", "Post-Test");
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(attributes)
+                .body("""
+                        {
+                            "name": "Post-Test"
+                        }
+                        """)
                 .when()
-                .post("/v1/api/threads")
+                .post("/api/v1/threads")
                 .then()
                 .statusCode(201);
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/v1/api/threads/Post-Test")
+                .get("/api/v1/threads/Post-Test")
                 .then()
                 .statusCode(200)
                 .and()

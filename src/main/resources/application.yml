@@ -1,1 +1,18 @@
-spring.application.name=komento
+server:
+  port: 8888
+spring:
+  application:
+    name: komento
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/komento-api
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: toor
+      database: komento-api
+      port: 27017

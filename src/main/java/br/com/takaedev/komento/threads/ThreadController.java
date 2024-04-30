@@ -5,18 +5,19 @@ import br.com.takaedev.komento.threads.ThreadService.DTOSaveThreadReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/api/threads")
+@RequestMapping("/api/v1/threads")
 public class ThreadController {
     private final ThreadService threadService;
 
     @GetMapping("/{name}")
+    @PreAuthorize("hasRole('K_ADMIN')")
     public ResponseEntity<Thread> getThread(@PathVariable String name) {
         Optional<Thread> possibleThread = threadService.findByName(name);
         return possibleThread
