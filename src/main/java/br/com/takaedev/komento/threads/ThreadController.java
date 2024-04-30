@@ -1,6 +1,7 @@
 package br.com.takaedev.komento.threads;
 
 import br.com.takaedev.komento.base.InvalidAttributeException;
+import br.com.takaedev.komento.base.InvalidStateException;
 import br.com.takaedev.komento.threads.ThreadService.DTOSaveThreadReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ThreadController {
 
     @PostMapping
     @PreAuthorize("hasRole('K_ADMIN')")
-    public ResponseEntity<Void> saveThread(@RequestBody DTOSaveThreadReq dto) throws InvalidAttributeException {
+    public ResponseEntity<Void> saveThread(@RequestBody DTOSaveThreadReq dto) throws InvalidAttributeException, InvalidStateException {
         threadService.save(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
