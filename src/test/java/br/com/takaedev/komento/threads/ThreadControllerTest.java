@@ -7,9 +7,6 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -19,6 +16,7 @@ class ThreadControllerTest extends BasicSetup {
     public void saveThreadFlow() throws InvalidAttributeException {
         RestAssured.given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getToken())
                 .body("""
                         {
                             "name": "Post-Test"
@@ -30,6 +28,7 @@ class ThreadControllerTest extends BasicSetup {
                 .statusCode(201);
         RestAssured.given()
                 .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getToken())
                 .when()
                 .get("/api/v1/threads/Post-Test")
                 .then()

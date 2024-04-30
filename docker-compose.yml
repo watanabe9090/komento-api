@@ -1,25 +1,18 @@
 services:
-  mongo-express:
-    image: mongo-express
-    restart: always
+  db:
+    image: postgres
     ports:
-      - "8081:8081"
+      - 5432:5432
     environment:
-      ME_CONFIG_BASICAUTH_USERNAME: root
-      ME_CONFIG_BASICAUTH_PASSWORD: toor
-      ME_CONFIG_MONGODB_PORT: "27017"
-      ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: toor
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: komento-api-db
 
-  mongo:
-    image: mongo
+  adminer:
+    image: adminer
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: toor
     ports:
-      - "27017:27017"
+      - 8081:8080
 
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.2

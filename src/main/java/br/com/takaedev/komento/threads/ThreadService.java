@@ -1,8 +1,11 @@
 package br.com.takaedev.komento.threads;
 
 import br.com.takaedev.komento.base.Auditing;
+import br.com.takaedev.komento.base.BaseService;
 import br.com.takaedev.komento.base.InvalidAttributeException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -10,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ThreadService {
+public class ThreadService extends BaseService {
     private final ThreadRepository repository;
 
     public Optional<Thread> findByName(String name) {
@@ -26,7 +29,7 @@ public class ThreadService {
         Thread newThread = new Thread();
         newThread.setName(dto.name);
         newThread.setDescription(dto.description);
-        newThread.setAuditing(Auditing.getNew(null));
+        Auditing.neow(newThread, getPrincipal());
         repository.save(newThread);
     }
 }

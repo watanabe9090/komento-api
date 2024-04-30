@@ -17,7 +17,7 @@ public class ThreadController {
     private final ThreadService threadService;
 
     @GetMapping("/{name}")
-    @PreAuthorize("hasRole('K_ADMIN')")
+    @PreAuthorize("hasRole('K_USER')")
     public ResponseEntity<Thread> getThread(@PathVariable String name) {
         Optional<Thread> possibleThread = threadService.findByName(name);
         return possibleThread
@@ -26,6 +26,7 @@ public class ThreadController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('K_ADMIN')")
     public ResponseEntity<Void> saveThread(@RequestBody DTOSaveThreadReq dto) throws InvalidAttributeException {
         threadService.save(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
