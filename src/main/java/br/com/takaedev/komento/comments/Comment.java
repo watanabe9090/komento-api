@@ -1,6 +1,7 @@
 package br.com.takaedev.komento.comments;
 
 import br.com.takaedev.komento.base.BaseAuditing;
+import br.com.takaedev.komento.threads.Thread;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,4 +15,6 @@ public class Comment extends BaseAuditing {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String message;
+    @ManyToOne
+    private Thread thread;
 }
